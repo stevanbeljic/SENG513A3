@@ -1,36 +1,24 @@
+version: '3'
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile-web
-    container_name: web
-    ports:
-      - "8080:80"
+  www:
+    image: php:apache
     volumes:
-      - ./src:/var/www/html
-    depends_on:
-      - db
-  db:
-    build:
-      context: .
-      dockerfile: Dockerfile-db
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: /run/secrets/db_root_password
-      MYSQL_DATABASE: a3db
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: /run/secrets/db_password
-    volumes:
-      - mariadb_data:/var/lib/mysql
+      - "./:/var/www/html"
     ports:
-      - "3306:3306"
-    secrets:
-      - db_password
-secrets:
-  db_password:
-    file: db_password.txt
-  db_root_password:
-    file: db_root_password.txt
+      - 80:80
 
-volumes:
-  mariadb_data: {}
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=a3db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
