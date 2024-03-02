@@ -26,13 +26,7 @@
     </div>
     <div id="note">
         <label><span>*Unregistered users will be auto-registered</span></label>
-    </div>
-
-    <!-- <?php
-    // Your PHP code goes here
-    echo "Hello, world!";
-    ?> -->
-    
+    </div>    
     
 </body>
 </html>

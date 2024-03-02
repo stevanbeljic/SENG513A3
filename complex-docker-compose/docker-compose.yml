@@ -1,11 +1,16 @@
 version: '3'
 services:
   www:
-    image: php:apache
+    container_name: phpapache
+    build:
+      context: .
+      dockerfile: Dockerfile-web
     volumes:
       - "./:/var/www/html"
     ports:
       - 80:80
+    depends_on:
+      - db
 
   db:
     image: mysql:latest
@@ -14,6 +19,8 @@ services:
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - "./scripts:/docker-entrypoint-initdb.d"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -22,3 +29,6 @@ services:
     environment:
       - PMA_HOST=db
       - PMA_PORT=3306
+
+volumes:
+  mysql_data: {}
