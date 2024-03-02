@@ -1,4 +1,4 @@
-* {
+body {
     font-family:monospace;
 }
 
@@ -6,6 +6,7 @@
     margin-top: 100px;
     width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -15,4 +16,20 @@
     margin: 10px;
     width: 100%;
     justify-content: center;
+}
+
+#error {
+    color: red;
+}
+
+#logoutDiv {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
 }

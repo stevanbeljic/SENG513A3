@@ -33,3 +33,10 @@ th {
 #intro {
     margin: 20px;
 }
+
+#logoutDiv{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

@@ -1,10 +1,11 @@
 <?php
-    if(isset($_POST['user_id']) && filter_var($_POST['user_id'], FILTER_VALIDATE_INT)) {
+    session_start();
+    if(isset($_POST['user_id'])) {
         $user_id = $_POST['user_id'];
         
         $servername = "db";
         $username = "admin";
-        $password = "password";
+        $password = file_get_contents("password.txt");
         $dbName = "a3db";
 
         $conn = mysqli_connect($servername, $username, $password, $dbName);
@@ -19,7 +20,11 @@
         $result = mysqli_query($conn, $sql);
 
         mysqli_close($conn);
-        header("Location: adminpage.php");
+        if ($_SESSION['role'] == 'admin') {
+            header("Location: adminpage.php");
+        } else {
+            header("Location: index.php");
+        }
         exit();
     } else {
         header("Location: adminpage.php");

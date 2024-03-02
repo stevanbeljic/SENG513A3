@@ -1,7 +1,11 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Assignment 3 - Stevan Beljic</title>
+    <title>Login - Stevan Beljic</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,13 +24,22 @@
                 <input type="password" name="password">
             </div>
             <div class="field">
+                <label for="register">Register?</label>
+                <input type="checkbox" name="register">
+            </div>
+            <div class="field">
                 <input type="submit" value="Submit" name="submit">
             </div>
         </form>
     </div>
     <div id="note">
-        <label><span>*Unregistered users will be auto-registered</span></label>
-    </div>    
+        <?php
+            if (isset($_SESSION['error'])) {
+                echo "<p id='error'>" . $_SESSION['error'] . "</p>";
+                unset($_SESSION['error']);
+            }
+        ?>
+    </div>     
     
 </body>
 </html>

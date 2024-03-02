@@ -1,7 +1,8 @@
 <?php
+    session_start();
     $servername = "db";
     $username = "admin";
-    $password = "password";
+    $password = file_get_contents("password.txt");
     $dbName = "a3db";
 
     $conn = mysqli_connect($servername, $username, $password, $dbName);
@@ -27,7 +28,7 @@
     </div>
     <div class="content">
         <label id="intro">
-            Below are users. You can manage users below.
+            Below are users of this website. You can delete users with admin permissions.
         </label>
     </div>
     <div class="content">
@@ -57,6 +58,11 @@
             }
             echo"</table>";
         ?>
+    </div>
+    <div id="logoutDiv">
+        <form action='index.php'>
+            <button type='submit'>Log Out</button>
+        </form>
     </div>
 </body>
 </html>
