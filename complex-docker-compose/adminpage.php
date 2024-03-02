@@ -19,7 +19,7 @@
 <html>
 <head>
     <title>Admin Page - Stevan Beljic</title>
-    <link rel="stylesheet" href="adminpage.css">
+    <link rel="stylesheet" href="styles/adminpage.css">
 </head>
 <body>
     <div id="welcome">

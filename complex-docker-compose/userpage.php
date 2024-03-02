@@ -24,6 +24,7 @@
         $result = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($result);
     } elseif($numRows < 1 && !isset($_POST['register'])) {
+        $_SESSION['error'] = "No registered account with those credentials";
         header("Location: index.php");
         exit();
     } else {
@@ -47,8 +48,8 @@
 <html>
 <head>
     <title>User - Stevan Beljic</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="userpage.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/userpage.css">
 </head>
 <body>
     <div id="top">
