@@ -1,14 +1,62 @@
+<?php
+    $servername = "db";
+    $username = "admin";
+    $password = "password";
+    $dbName = "a3db";
+
+    $conn = mysqli_connect($servername, $username, $password, $dbName);
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT * FROM users WHERE role='user'";
+    $result = mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Assignment 3 - Stevan Beljic</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="userpage.css">
+    <title>Admin Page - Stevan Beljic</title>
+    <link rel="stylesheet" href="adminpage.css">
 </head>
 <body>
     <div id="welcome">
-        <label>You are on the admin page.</label>
+        <h1>Admin Page</h1>
+        
     </div>
-    
+    <div class="content">
+        <label id="intro">
+            Below are users. You can manage users below.
+        </label>
+    </div>
+    <div class="content">
+        <?php echo "
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            ";
+            if($result->num_rows > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['id'] . "</td>";
+                    echo "<td>" . $row['username'] . "</td>";
+                    echo "<td>" . $row['role'] . "</td>";
+                    echo "<td>
+                            <form method='post' action='delete_user.php'>
+                                <input type='hidden' name='user_id' value='" . $row['id'] . "'>
+                                <button type='submit' name='delete'>Delete</button>
+                            </form>
+                          </td>";
+                    echo "</tr>";
+                }
+            }
+            echo"</table>";
+        ?>
+    </div>
 </body>
 </html>

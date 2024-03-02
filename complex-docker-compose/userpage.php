@@ -1,3 +1,31 @@
+<?php
+    $servername = "db";
+    $username = "admin";
+    $password = "password";
+    $dbName = "a3db";
+
+    $conn = mysqli_connect($servername, $username, $password, $dbName);
+
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $usernameProvided = htmlspecialchars($_POST["username"]);
+    $sql = "SELECT * FROM users WHERE username='$usernameProvided'";
+    $result = mysqli_query($conn, $sql);
+    $numRows = $result->num_rows;
+    if ($numRows < 1) {
+        $passwordProvided = htmlspecialchars($_POST["password"]);
+        $sql = "INSERT INTO users (username, password, role) VALUES ('$usernameProvided', '$passwordProvided', 'user')";
+        $result = mysqli_query($conn, $sql);
+    } else {
+        $row = mysqli_fetch_array($result);
+        if($row["role"]=="admin"){
+            header("Location: adminpage.php");
+            exit();
+        }
+    }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,35 +34,14 @@
     <link rel="stylesheet" href="userpage.css">
 </head>
 <body>
-    <?php
-        $servername = "db";
-        $username = "admin";
-        $password = "password";
-        $dbName = "a3db";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $dbName);
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-    ?>
     <div id="welcome">
-        <?php
-            $usernameProvided = htmlspecialchars($_POST["username"]);
-            $sql = "SELECT username FROM users WHERE username='$usernameProvided'";
-            $result = mysqli_query($conn, $sql);
-            if ($result->num_rows < 1) {
-                $passwordProvided = htmlspecialchars($_POST["password"]);
-                $sql = "INSERT INTO users (username, password, role) VALUES ('$usernameProvided', '$passwordProvided', 'user')";
-                $result = mysqli_query($conn, $sql);
-                echo "<label>Welcome " . $usernameProvided . "!! You have been registered.</label>";
-            } else{
-                echo "<label>Welcome back, " . $usernameProvided . ".</label>";
+        <?php 
+            if($numRows < 1){
+                echo "<label>Welcome, ". $usernameProvided .". You have been registered.</label>";
+            } else {
+                echo "<label>Welcome back, ". $usernameProvided ."</label>";
             }
         ?>
     </div>
-    
 </body>
 </html>
