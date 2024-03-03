@@ -18,6 +18,7 @@
     $numRows = $result->num_rows;
     if ($numRows < 1 && isset($_POST['register'])) {
         $passwordProvided = htmlspecialchars($_POST["password"]);
+        $passwordProvided = hash("md5", $passwordProvided);
         $sql = "INSERT INTO users (username, password, role) VALUES ('$usernameProvided', '$passwordProvided', 'user')";
         $result = mysqli_query($conn, $sql);
         $sql = "SELECT * FROM users WHERE username='$usernameProvided'";
@@ -31,6 +32,7 @@
         $row = mysqli_fetch_array($result);
 
         $passwordProvided = htmlspecialchars($_POST["password"]);
+        $passwordProvided = hash("md5", $passwordProvided);
         if ($row["password"] != $passwordProvided) {
             $_SESSION['error'] = "Wrong password";
             header("Location: index.php");

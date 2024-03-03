@@ -7,6 +7,6 @@ CREATE TABLE users (
 );
 
 /* create admin user */
-INSERT INTO users (username, password, role) VALUES ('admin', 'password', 'admin');
+INSERT INTO users (username, password, role) VALUES ('admin', '5f4dcc3b5aa765d61d8327deb882cf99', 'admin');
 
-INSERT INTO users (username, password, role) VALUES ('generic', 'password', 'user');
+INSERT INTO users (username, password, role) VALUES ('generic', '5f4dcc3b5aa765d61d8327deb882cf99', 'user');
